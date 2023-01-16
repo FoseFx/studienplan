@@ -1,8 +1,8 @@
 export enum ModuleArea {
   Praktische,
   Technische,
-  Theoretische,
   Mathe,
+  Theoretische,
   Sonstiges,
   Wahl,
 }
