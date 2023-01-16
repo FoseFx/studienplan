@@ -34,6 +34,19 @@
     state[toSemester].sort(sortFn);
 		state = state;
 	}
+
+  function add(semester: number) {
+    state.splice(semester, 0, []);
+    state = state;
+  }
+
+  function remove(semester: number) {
+    if (state[semester].length != 0) {
+      return;
+    }
+    state.splice(semester, 0);
+    state = state;
+  }
 </script>
 
 <div class="h-screen">
@@ -43,7 +56,8 @@
       <Semester
         title={`${i + 1}. Semester`}
         on:dragover={e => e.preventDefault()}
-  		  on:drop={event => drop(event, i)}>
+  		  on:drop={event => drop(event, i)}
+        on:click={_ => add(i + 1)}>
         {#each semester as module, j}
           <Tile
             on:dragstart={event => dragStart(event, i, j)}
