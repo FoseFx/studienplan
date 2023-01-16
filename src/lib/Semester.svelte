@@ -1,6 +1,4 @@
 <script lang="ts">
-  import type { DragEventHandler } from "svelte/elements/index"
-
   export let title: string;
 </script>
 
@@ -10,7 +8,7 @@
 }
 </style>
 
-<div class="semester">
+<div class="semester" on:drop on:dragover>
   <span class="text-center font-bold text-2xl my-4">{ title }</span>
   <slot></slot>
 </div>

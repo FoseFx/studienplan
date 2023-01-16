@@ -1,9 +1,7 @@
 <script lang="ts">
-  import type { DragEventHandler } from "svelte/elements/index"
 	import { ModuleArea, type Module } from "./types";
 
 	export let module: Module;
-	export let dragstart: DragEventHandler<HTMLDivElement>;
 
   let className = "tile";
   $: className = "tile " + ModuleArea[module.area]
@@ -22,7 +20,7 @@
 }
 </style>
 
-<div class="{className}" draggable={true} on:dragstart={dragstart}>
+<div class="{className}" draggable={true} on:dragstart>
   <div>{module.title}</div>
   <div class="flex-shrink-0">{module.credits} CP</div>
 </div>

@@ -20,10 +20,9 @@
    	event.dataTransfer?.setData('text/plain', JSON.stringify(data));
   }
 
-  function drop(event: CustomEvent<any>, toSemester: number) {
-    console.log("drop");
+  function drop(event: DragEvent, toSemester: number) {
 		event.preventDefault();
-    const json = (event as any).dataTransfer!.getData("text/plain");
+    const json = event.dataTransfer!.getData("text/plain");
 		const data: {fromSemester: number, fromIndex: number} = JSON.parse(json);
 
 		const [item] = state[data.fromSemester].splice(data.fromIndex, 1);
@@ -37,11 +36,13 @@
 
   <Board>
     {#each state as semester, i}
-      <Semester title={`${i + 1}. Semester`}
-  		on:drop={event => drop(event, i)}>
+      <Semester
+        title={`${i + 1}. Semester`}
+        on:dragover={e => e.preventDefault()}
+  		  on:drop={event => drop(event, i)}>
         {#each semester as module, j}
           <Tile
-            dragstart={event => dragStart(event, i, j)}
+            on:dragstart={event => dragStart(event, i, j)}
             module={module}
           />
         {/each}
