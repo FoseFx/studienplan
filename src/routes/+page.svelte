@@ -14,6 +14,8 @@
     [modules[22], modules[27], modules[28]]
   ];
 
+  let selected: Module | null = null;
+
   function sortFn(a: Module, b: Module): number {
     return a.area - b.area;
   }
@@ -21,6 +23,7 @@
   function dragStart(event: DragEvent, fromSemester: number, fromIndex: number) {
 		const data = {fromSemester, fromIndex};
    	event.dataTransfer?.setData('text/plain', JSON.stringify(data));
+    selected = state[fromSemester][fromIndex];
   }
 
   function drop(event: DragEvent, toSemester: number) {
@@ -28,12 +31,25 @@
     const json = event.dataTransfer!.getData("text/plain");
 		const data: {fromSemester: number, fromIndex: number} = JSON.parse(json);
 
-		const [item] = state[data.fromSemester].splice(data.fromIndex, 1);
+    const item = state[data.fromSemester][data.fromIndex];
 
-		state[toSemester].push(item);
-    state[toSemester].sort(sortFn);
-		state = state;
+    if (possibleSemester(toSemester, item)) {
+      state[data.fromSemester].splice(data.fromIndex, 1);
+      state[toSemester].push(item);
+      state[toSemester].sort(sortFn);
+      state = state;
+    }
+
+    selected = null;
 	}
+
+  function possibleSemester(i: number, selected: Module | null): boolean {
+    if (!selected) {
+      return true;
+    }
+    let isWS = i % 2 == 0;
+    return (isWS && selected.ws) || (!isWS && selected.ss);
+  }
 
   function add(semester: number) {
     state.splice(semester, 0, []);
@@ -50,23 +66,23 @@
 </script>
 
 <div class="h-screen">
-
   <Board>
     {#each state as semester, i}
       <Semester
         title={`${i + 1}. Semester`}
+        cp={semester.reduce((p, c) => p + c.credits, 0)}
+        disabled={!possibleSemester(i, selected)}
         on:dragover={e => e.preventDefault()}
   		  on:drop={event => drop(event, i)}
         on:click={_ => add(i + 1)}>
         {#each semester as module, j}
           <Tile
             on:dragstart={event => dragStart(event, i, j)}
+            on:dragend={_ => selected = null}
             module={module}
           />
         {/each}
       </Semester>
     {/each}
   </Board>
-
 </div>
-

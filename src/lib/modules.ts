@@ -12,7 +12,7 @@ export const modules: Module[] = [
   { id: 9, title: "Formale Systeme, Automaten, Prozesse", credits: 6, area: ModuleArea.Theoretische, ws: true, ss: true},
   { id: 10, title: "Proseminar", credits: 4, area: ModuleArea.Sonstiges, ws: true, ss: true},
   { id: 11, title: "Softwaretechnik", credits: 6, area: ModuleArea.Praktische, ws: true, ss: false},
-  { id: 12, title: "Datenkommunikation", credits: 6, area: ModuleArea.Technische, ws: false, ss: true},
+  { id: 12, title: "Daten-kommunikation", credits: 6, area: ModuleArea.Technische, ws: false, ss: true},
   { id: 13, title: "PSP", credits: 8, area: ModuleArea.Technische, ws: true, ss: true},
   { id: 14, title: "Berechenbarkeit und Komplexität", credits: 7, area: ModuleArea.Theoretische, ws: true, ss: true},
   { id: 15, title: "Datenbanken und Informationssysteme", credits: 6, area: ModuleArea.Praktische, ws: true, ss: true},

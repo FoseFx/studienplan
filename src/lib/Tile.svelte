@@ -20,7 +20,7 @@
 }
 </style>
 
-<div class="{className}" draggable={true} on:dragstart>
+<div class="{className}" draggable={true} on:dragstart on:dragend>
   <div>{module.title}</div>
   <div class="flex-shrink-0">{module.credits} CP</div>
 </div>

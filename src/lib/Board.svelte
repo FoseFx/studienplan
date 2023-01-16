@@ -3,7 +3,7 @@
 
 <style>
 .board {
-  @apply w-screen h-screen flex flex-row gap-2;
+  @apply w-screen h-screen flex flex-row gap-2 select-none;
 }
 </style>
 
